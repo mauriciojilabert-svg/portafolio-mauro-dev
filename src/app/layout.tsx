@@ -51,7 +51,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={inter.variable}>
-      <body className="antialiased" style={{ background: '#080c0b', color: '#d4e0db' }}>{children}</body>
+      <body className="antialiased" style={{ background: '#000000', color: '#ffffff' }}>{children}</body>
     </html>
   );
 }

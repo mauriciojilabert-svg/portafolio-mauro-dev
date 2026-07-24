@@ -1,159 +1,148 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { X, Menu } from "lucide-react";
 import Image from "next/image";
 
-const navLinks = [
-  { href: "#sistemas", label: "Sistemas" },
+const links = [
+  { href: "#proyectos", label: "Proyectos" },
   { href: "#servicios", label: "Servicios" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "#contacto",  label: "Contacto"  },
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open,     setOpen]     = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
+    const onScroll = () => {
+      const scrolled = window.scrollY;
+      const total = document.body.scrollHeight - window.innerHeight;
+      setProgress(total > 0 ? (scrolled / total) * 100 : 0);
+      setScrolled(scrolled > 60);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const go = (href: string) => {
-    setIsOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    setOpen(false);
+    setTimeout(() => {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    }, 80);
   };
 
   return (
-    <nav
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-[var(--border)] backdrop-blur-md"
-          : "border-b border-transparent"
-      }`}
-      style={{ background: scrolled ? "rgba(8,12,11,0.92)" : "transparent" }}
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-14 sm:h-16">
+    <>
+      {/* Reading progress */}
+      <div className="progress-bar" style={{ width: `${progress}%` }} />
+
+      <nav
+        className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+        style={{
+          background: scrolled ? "rgba(0,0,0,0.92)" : "transparent",
+          backdropFilter: scrolled ? "blur(10px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "none",
+        }}
+      >
+        <div className="flex items-center justify-between px-5 sm:px-8 h-14 sm:h-16 max-w-7xl mx-auto">
 
           {/* Logo */}
-          <motion.a
+          <a
             href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-            className="flex items-center gap-2.5 group"
-            whileTap={{ scale: 0.96 }}
+            onClick={e => { e.preventDefault(); window.scrollTo({ top:0, behavior:"smooth" }); }}
+            className="eyebrow text-white tracking-[0.2em] text-sm font-black"
           >
-            <span className="display-heading text-lg tracking-tight">
-              <span className="gradient-text">MAURO</span>
-              <span style={{ color: "var(--text-faint)" }}>.DEV</span>
-            </span>
-          </motion.a>
+            MAURO<span style={{ color: "var(--gold)" }}>.</span>DEV
+          </a>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-0">
-            {navLinks.map((link) => (
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-8">
+            {links.map(l => (
               <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => { e.preventDefault(); go(link.href); }}
-                className="label-mono px-5 py-2 opacity-50 hover:opacity-100 transition-opacity duration-200"
+                key={l.href}
+                href={l.href}
+                onClick={e => { e.preventDefault(); go(l.href); }}
+                className="eyebrow text-white opacity-60 hover:opacity-100 transition-opacity duration-200"
               >
-                {link.label}
+                {l.label}
               </a>
             ))}
-
-            <motion.button
+            <button
               onClick={() => go("#contacto")}
-              className="ml-4 btn-ghost text-xs py-2 px-5"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+              className="btn-ng btn-ng-light text-xs py-2.5 px-5"
             >
-              Demo
-            </motion.button>
-
-            {/* Subtle avatar */}
-            <motion.div
-              className="ml-4 opacity-30 hover:opacity-70 transition-opacity duration-300 cursor-default"
-              title="Mauricio Caceres Jilabert"
-              whileHover={{ scale: 1.08 }}
-            >
-              <div
-                className="relative w-7 h-7 overflow-hidden border border-[var(--border-strong)] grayscale"
-                style={{ clipPath: "polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px))" }}
-              >
-                <Image src="/mauro-photo.jpg" alt="Mauricio Caceres Jilabert" fill className="object-cover" sizes="28px" />
-              </div>
-            </motion.div>
+              Demo →
+            </button>
           </div>
 
-          {/* Mobile hamburger */}
-          <motion.button
-            className="md:hidden p-2 transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Toggle menu"
-            style={{ color: "var(--text-muted)" }}
+          {/* Hamburger */}
+          <button
+            className="md:hidden p-2 text-white"
+            onClick={() => setOpen(!open)}
+            aria-label="Menú"
           >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </motion.button>
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile drawer */}
+      {/* Mobile fullscreen menu */}
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.22, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden border-b border-[var(--border)]"
-            style={{ background: "rgba(8,12,11,0.97)", backdropFilter: "blur(16px)" }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1,  y: 0  }}
+            exit={{   opacity: 0, y: -10 }}
+            transition={{ duration: 0.22 }}
+            className="fixed inset-0 z-40 section-dark flex flex-col"
+            style={{ paddingTop: "56px" }}
           >
-            <div className="px-4 pt-3 pb-6 flex flex-col gap-0">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => { e.preventDefault(); go(link.href); }}
-                  className="flex items-center justify-between px-0 py-4 border-b border-[var(--border)] label-mono text-sm opacity-60 hover:opacity-100 hover:text-[var(--teal)] transition-all duration-200"
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 0.6, x: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                >
-                  <span>{link.label}</span>
-                  <span className="opacity-30">{String(i + 1).padStart(2, "0")}</span>
-                </motion.a>
-              ))}
+            {/* Close btn */}
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-4 right-5 text-white p-2"
+            >
+              <X className="w-5 h-5" />
+            </button>
 
-              <motion.button
-                onClick={() => go("#contacto")}
-                className="btn-primary mt-5 w-full justify-center text-sm py-4"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.22 }}
-              >
-                Solicitar Demo
-              </motion.button>
+            <div className="flex flex-col flex-1 px-6 pt-10 pb-8 justify-between">
+              <nav className="flex flex-col gap-0">
+                {links.map((l, i) => (
+                  <motion.a
+                    key={l.href}
+                    href={l.href}
+                    onClick={e => { e.preventDefault(); go(l.href); }}
+                    className="flex items-end justify-between py-5 border-b border-white/10"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1,  x: 0  }}
+                    transition={{ delay: i * 0.07 }}
+                  >
+                    <span className="section-title text-white text-4xl">{l.label}</span>
+                    <span className="eyebrow text-white/30 text-lg">{String(i+1).padStart(2,"0")}</span>
+                  </motion.a>
+                ))}
+              </nav>
 
-              {/* Author row */}
+              {/* Author bottom */}
               <motion.div
-                className="flex items-center gap-3 mt-5 pt-4 border-t border-[var(--border)] opacity-30"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.3 }}
-                transition={{ delay: 0.3 }}
+                className="flex items-center gap-3 pt-4"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
               >
-                <div className="relative w-6 h-6 overflow-hidden grayscale border border-[var(--border)]">
-                  <Image src="/mauro-photo.jpg" alt="" fill className="object-cover" sizes="24px" />
+                <div className="relative w-8 h-8 overflow-hidden grayscale opacity-60">
+                  <Image src="/mauro-photo.jpg" alt="" fill className="object-cover" sizes="32px"/>
                 </div>
-                <span className="label-mono text-[0.6rem]">Mauricio Caceres Jilabert</span>
+                <div>
+                  <p className="eyebrow text-white/50 text-[0.6rem]">Mauricio Caceres Jilabert</p>
+                  <p className="eyebrow text-white/25 text-[0.55rem]">Fullstack · VoIP</p>
+                </div>
               </motion.div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }

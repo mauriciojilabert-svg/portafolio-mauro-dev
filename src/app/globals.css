@@ -2,191 +2,200 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design Tokens ─────────────────────────────────────── */
+/* ─── NatGeo Design Tokens ───────────────────────────────── */
 :root {
-  --bg-primary:    #080c0b;
-  --bg-secondary:  #0d1412;
-  --bg-card:       #0f1714;
-  --bg-card-alt:   #111a18;
-  --teal:          #00c9a7;
-  --teal-dim:      #007a65;
-  --teal-ghost:    rgba(0, 201, 167, 0.06);
-  --text-primary:  #d4e0db;
-  --text-muted:    #6b8580;
-  --text-faint:    #334740;
-  --border:        rgba(0, 201, 167, 0.10);
-  --border-strong: rgba(0, 201, 167, 0.22);
+  --black:       #000000;
+  --white:       #FFFFFF;
+  --off-white:   #F5F5F3;
+  --gold:        #00c9a7;   /* brand teal as accent */
+  --gray-100:    #F0F0EE;
+  --gray-200:    #E0E0DE;
+  --gray-500:    #888888;
+  --gray-700:    #444444;
+  --gray-900:    #111111;
 }
 
 /* ─── Base ───────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  background: var(--bg-primary);
+  font-size: 16px;
 }
 
 body {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-inter), 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 /* ─── Scrollbar ──────────────────────────────────────────── */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
-::-webkit-scrollbar-thumb { background: var(--teal-dim); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--teal); }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gray-700); }
 
 /* ─── Selection ──────────────────────────────────────────── */
 ::selection {
-  background: rgba(0, 201, 167, 0.2);
-  color: #fff;
+  background: var(--gold);
+  color: var(--black);
 }
 
-/* ─── Typography helpers ─────────────────────────────────── */
-.label-mono {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 0.65rem;
+/* ─── Typography ─────────────────────────────────────────── */
+
+/* Display: massive editorial headlines */
+.display {
+  font-weight: 900;
+  line-height: 0.90;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+/* Section header: bold, tight */
+.section-title {
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+/* Labels: small mono uppercase */
+.eyebrow {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+}
+
+/* Large numbers like 01 02 03 */
+.num-anchor {
+  font-size: clamp(3rem, 12vw, 8rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Hairline dividers ───────────────────────────────────── */
+.hr-black  { border-top: 1px solid rgba(0,0,0,0.12); }
+.hr-white  { border-top: 1px solid rgba(255,255,255,0.12); }
+.hr-gold   { border-top: 1px solid var(--gold); }
+
+/* ─── NatGeo ghost button ────────────────────────────────── */
+.btn-ng {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.8rem;
+  border: 1px solid currentColor;
+  border-radius: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-ng:active { opacity: 0.75; }
+
+/* Ghost on dark bg */
+.btn-ng-light {
+  color: var(--white);
+  border-color: rgba(255,255,255,0.5);
+}
+.btn-ng-light:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: var(--white);
 }
 
-.display-heading {
-  font-weight: 900;
-  line-height: 0.92;
-  letter-spacing: -0.04em;
+/* Ghost on white bg */
+.btn-ng-dark {
+  color: var(--gray-900);
+  border-color: rgba(0,0,0,0.4);
+}
+.btn-ng-dark:hover {
+  background: rgba(0,0,0,0.05);
+  border-color: var(--gray-900);
 }
 
-.teal-text { color: var(--teal); }
-.muted-text { color: var(--text-muted); }
-
-/* ─── Gradient text ──────────────────────────────────────── */
-.gradient-text {
-  background: linear-gradient(135deg, #00c9a7, #00e5c9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Solid gold CTA */
+.btn-ng-solid {
+  color: var(--black);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.btn-ng-solid:hover {
+  background: #00e5c9;
+  border-color: #00e5c9;
 }
 
-/* ─── Cards ──────────────────────────────────────────────── */
-.panel {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+/* ─── Arrow link ─────────────────────────────────────────── */
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: gap 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.arrow-link:hover, .arrow-link:active { gap: 0.7rem; }
+
+/* ─── Gold accent line ────────────────────────────────────── */
+.gold-bar {
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--gold);
+}
+
+/* ─── Progress bar top ────────────────────────────────────── */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gold);
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+
+/* ─── Section alternation ────────────────────────────────── */
+.section-dark  { background: var(--black);     color: var(--white); }
+.section-light { background: var(--off-white); color: var(--gray-900); }
+.section-white { background: var(--white);     color: var(--gray-900); }
+
+/* ─── Full-bleed image container ──────────────────────────── */
+.full-bleed {
   position: relative;
+  width: 100%;
   overflow: hidden;
 }
 
-.panel::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--teal-ghost);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
+/* ─── Card hover ──────────────────────────────────────────── */
+.img-zoom img {
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+.img-zoom:hover img { transform: scale(1.03); }
 
-.panel:hover::before { opacity: 1; }
-
-/* ─── Topo pattern overlay ───────────────────────────────── */
-.topo-bg {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cellipse cx='100' cy='100' rx='90' ry='45' fill='none' stroke='%2300c9a7' stroke-width='0.3' opacity='0.15'/%3E%3Cellipse cx='100' cy='100' rx='70' ry='35' fill='none' stroke='%2300c9a7' stroke-width='0.3' opacity='0.12'/%3E%3Cellipse cx='100' cy='100' rx='50' ry='25' fill='none' stroke='%2300c9a7' stroke-width='0.3' opacity='0.10'/%3E%3Cellipse cx='100' cy='100' rx='30' ry='15' fill='none' stroke='%2300c9a7' stroke-width='0.3' opacity='0.08'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-}
-
-/* ─── Grid overlay ───────────────────────────────────────── */
-.grid-overlay {
-  background-image:
-    linear-gradient(rgba(0,201,167,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,201,167,0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-/* ─── Section separators ─────────────────────────────────── */
-.section-sep {
-  border-top: 1px solid var(--border);
-}
-
-/* ─── Buttons ────────────────────────────────────────────── */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
-  background: var(--teal);
-  color: var(--bg-primary);
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-}
-
-.btn-primary:hover {
-  background: #00e5c9;
-  box-shadow: 0 0 30px rgba(0,201,167,0.3);
-}
-
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
-  background: transparent;
-  color: var(--teal);
-  font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: 1px solid var(--border-strong);
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.btn-ghost:hover {
-  background: rgba(0,201,167,0.07);
-  border-color: var(--teal);
-}
-
-/* ─── Tag pill ───────────────────────────────────────────── */
-.tech-tag {
-  font-family: 'Courier New', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--teal);
-  background: rgba(0,201,167,0.08);
-  border: 1px solid rgba(0,201,167,0.18);
-  padding: 0.2rem 0.5rem;
-}
-
-/* ─── Glowing dot ────────────────────────────────────────── */
-.pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--teal);
-  box-shadow: 0 0 8px var(--teal);
-  animation: pulseDot 2.5s ease-in-out infinite;
-}
-
-@keyframes pulseDot {
-  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--teal); }
-  50% { opacity: 0.4; box-shadow: 0 0 3px var(--teal); }
-}
-
-/* ─── Mobile touch ───────────────────────────────────────── */
-@media (max-width: 768px) {
+/* ─── Mobile utilities ────────────────────────────────────── */
+@media (max-width: 640px) {
   html { font-size: 15px; }
   * { -webkit-tap-highlight-color: transparent; }
 }
 
-/* ─── Safe areas ─────────────────────────────────────────── */
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+/* ─── Fade-in animation ───────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.7s ease forwards; }

@@ -1,129 +1,160 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Zap, Calendar, Send } from "lucide-react";
+import { Mail } from "lucide-react";
 import Image from "next/image";
-
-const highlights = [
-  { icon: <Zap className="w-3.5 h-3.5" />, text: "Respuesta en menos de 24hs" },
-  { icon: <Calendar className="w-3.5 h-3.5" />, text: "Demo personalizada sin cargo" },
-  { icon: <Send className="w-3.5 h-3.5" />, text: "Cotización detallada a medida" },
-];
 
 export default function ContactSection() {
   const handleContact = () => {
     window.location.href =
-      "mailto:contacto@mauro.dev?subject=Consulta%20-%20Portfolio&body=Hola%20Mauricio%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20tus%20servicios.";
+      "mailto:contacto@mauro.dev?subject=Demo%20/%20Cotizaci%C3%B3n&body=Hola%20Mauricio%2C%20me%20interesa%20conocer%20m%C3%A1s.";
   };
 
   return (
-    <section id="contacto" className="py-16 sm:py-24 px-4 sm:px-6 section-sep">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
+    <section id="contacto" className="section-white">
+      {/* Top divider */}
+      <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }} />
+
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
+
+        {/* Gold bar + eyebrow */}
         <motion.div
-          className="mb-10 sm:mb-14"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="label-mono mb-3 opacity-40 text-[0.62rem]">Hablemos</p>
-          <h2 className="display-heading text-[clamp(1.9rem,7vw,3.5rem)]" style={{ color: '#d4e0db' }}>
-            ¿TRABAJAMOS<br />
-            <span className="gradient-text">JUNTOS?</span>
-          </h2>
+          <span className="gold-bar mb-4" />
+          <p className="eyebrow text-gray-400 mb-5">Hablemos</p>
         </motion.div>
 
-        {/* Main panel */}
-        <motion.div
-          className="border border-[var(--border)] relative overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_300px]"
-          style={{ background: 'var(--bg-card)' }}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          {/* Topo bg */}
-          <div className="absolute inset-0 topo-bg opacity-25 pointer-events-none" />
-          <div className="absolute -right-16 -top-16 w-48 h-48 rounded-full blur-[80px] opacity-[0.06] pointer-events-none" style={{ background: 'var(--teal)' }} />
+        {/* Main layout: text left, author right on lg */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 lg:gap-20 items-start">
 
-          {/* CTA column */}
-          <div className="relative z-10 p-6 sm:p-10 border-b lg:border-b-0 lg:border-r" style={{ borderColor: 'var(--border)' }}>
-            <p className="text-sm leading-relaxed mb-7 max-w-md" style={{ color: 'var(--text-muted)' }}>
-              Cuéntame tu desafío y te propongo una solución tecnológica
-              adaptada a tu empresa. Sin compromiso, con claridad técnica.
+          {/* Left: heading + CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <h2
+              className="section-title text-gray-900 mb-5"
+              style={{ fontSize: "clamp(2.5rem,10vw,6rem)" }}
+            >
+              ¿TRABAJAMOS<br />
+              <span style={{ color: "var(--gold)" }}>JUNTOS?</span>
+            </h2>
+
+            <p className="text-sm text-gray-500 leading-relaxed mb-8 max-w-lg">
+              Cuéntame tu desafío. Te propongo una solución tecnológica
+              adaptada a tu empresa sin compromiso — con claridad técnica
+              y respuesta en menos de 24 horas.
             </p>
 
-            <div className="flex flex-col gap-3 mb-8">
-              {highlights.map((h) => (
-                <div key={h.text} className="flex items-center gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
-                  <span style={{ color: 'var(--teal)' }}>{h.icon}</span>
-                  {h.text}
+            {/* CTA buttons */}
+            <div className="flex flex-col xs:flex-row gap-3 mb-8">
+              <button
+                onClick={handleContact}
+                className="btn-ng btn-ng-solid justify-center"
+                style={{ color: "var(--black)" }}
+              >
+                <Mail className="w-3.5 h-3.5" />
+                Solicitar Demo
+              </button>
+              <button
+                onClick={handleContact}
+                className="btn-ng btn-ng-dark justify-center"
+              >
+                Cotización →
+              </button>
+            </div>
+
+            {/* Highlights row */}
+            <div
+              className="grid grid-cols-1 xs:grid-cols-3 gap-0"
+              style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}
+            >
+              {[
+                { n: "24h", l: "Tiempo de respuesta" },
+                { n: "Demo", l: "Personalizada sin cargo" },
+                { n: "100%", l: "Cotización a medida" },
+              ].map((h) => (
+                <div
+                  key={h.l}
+                  className="py-4 pr-4"
+                  style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+                >
+                  <p className="font-black text-xl text-gray-900 mb-0.5">{h.n}</p>
+                  <p className="eyebrow text-gray-400">{h.l}</p>
                 </div>
               ))}
             </div>
 
-            {/* Full-width CTA on mobile */}
-            <motion.button
-              onClick={handleContact}
-              className="btn-primary w-full sm:w-auto justify-center text-sm py-4 px-8"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <Mail className="w-4 h-4 flex-shrink-0" />
-              Solicitar Demo / Cotización
-            </motion.button>
+            <p className="mt-5 eyebrow text-gray-300">contacto@mauro.dev</p>
+          </motion.div>
 
-            <p className="mt-4 label-mono opacity-20 text-[0.58rem]">contacto@mauro.dev</p>
-          </div>
-
-          {/* Author card — full width on mobile, sidebar on lg */}
+          {/* Right: author card */}
           <motion.div
-            className="relative z-10 p-6 sm:p-8 lg:p-10 flex flex-row lg:flex-col items-center lg:items-start gap-5 lg:gap-6 lg:justify-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.8 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="flex flex-col gap-5"
+            style={{ borderTop: "3px solid var(--gold)", paddingTop: "1.5rem" }}
           >
             {/* Photo */}
             <div
-              className="relative flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-700 overflow-hidden border border-[var(--border-strong)]"
-              style={{
-                width: '72px',
-                height: '72px',
-                clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))',
-              }}
+              className="relative overflow-hidden grayscale hover:grayscale-0 transition-all duration-700"
+              style={{ width: "100%", maxWidth: "280px", aspectRatio: "1/1" }}
             >
               <Image
                 src="/mauro-photo.jpg"
                 alt="Mauricio Caceres Jilabert"
                 fill
                 className="object-cover"
-                sizes="72px"
+                sizes="280px"
               />
-              <div className="absolute inset-0 mix-blend-color opacity-15" style={{ background: 'var(--teal)' }} />
+              {/* Gold tint overlay */}
+              <div
+                className="absolute inset-0 mix-blend-multiply opacity-20 transition-opacity duration-700 hover:opacity-0"
+                style={{ background: "var(--gold)" }}
+              />
             </div>
 
             {/* Identity */}
-            <div className="flex flex-col gap-1 lg:gap-1.5">
-              <p className="text-sm font-bold tracking-wide" style={{ color: 'var(--text-primary)' }}>
+            <div>
+              <p className="font-bold text-base text-gray-900 tracking-wide">
                 Mauricio Caceres Jilabert
               </p>
-              <p className="label-mono opacity-45">Fullstack Developer</p>
-              <p className="label-mono opacity-25">VoIP & Systems Specialist</p>
-
-              {/* Coordinates — visible on lg */}
-              <div className="hidden lg:block mt-4 pt-4 border-t w-full" style={{ borderColor: 'var(--border)' }}>
-                <p className="label-mono opacity-20 text-[0.52rem]">ARG · BUENOS AIRES · UTC-3</p>
-                <p className="label-mono opacity-20 text-[0.52rem] mt-1">PY / TS / DOCKER / ASTERISK</p>
+              <div className="flex flex-col gap-0.5 mt-1">
+                <p className="eyebrow text-gray-400">Fullstack Developer</p>
+                <p className="eyebrow text-gray-300">VoIP & Systems Specialist</p>
+                <p className="eyebrow text-gray-200 mt-1">Buenos Aires, Argentina 🇦🇷</p>
               </div>
             </div>
-          </motion.div>
 
-          {/* Corner accents */}
-          <div className="absolute top-3 right-3 w-5 h-5 border-t border-r opacity-20" style={{ borderColor: 'var(--teal)' }} />
-          <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l opacity-10" style={{ borderColor: 'var(--teal)' }} />
-        </motion.div>
+            {/* Stack tags */}
+            <div
+              className="flex flex-wrap gap-1.5 pt-3"
+              style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}
+            >
+              {["Python", "Django", "TypeScript", "Next.js", "PostgreSQL", "Asterisk"].map(t => (
+                <span
+                  key={t}
+                  className="eyebrow px-2 py-1"
+                  style={{
+                    border: "1px solid rgba(0,0,0,0.1)",
+                    color: "var(--gray-500)",
+                    fontSize: "0.55rem",
+                  }}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
