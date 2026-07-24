@@ -10,7 +10,7 @@ const services = [
     icon: <Lightbulb className="w-5 h-5" />,
     title: "Consultoría",
     subtitle: "de Sistemas",
-    description: "Análisis operativo e identificación de oportunidades de automatización y digitalización de procesos para maximizar la eficiencia empresarial.",
+    description: "Análisis operativo e identificación de oportunidades de digitalización de procesos para maximizar la eficiencia empresarial.",
     items: ["Relevamiento de procesos", "Diagnóstico tecnológico", "Hoja de ruta", "Asesoría en stack"],
   },
   {
@@ -26,8 +26,8 @@ const services = [
     icon: <Plug className="w-5 h-5" />,
     title: "Integración",
     subtitle: "APIs & VoIP",
-    description: "Integración de sistemas con ERPs, CRMs y centrales telefónicas Asterisk. Unificación operativa, eventos en tiempo real y automatización de flujos de trabajo.",
-    items: ["Asterisk AMI/ARI", "REST APIs", "Webhooks", "Automatización"],
+    description: "Integración de sistemas con ERPs, CRMs y centrales telefónicas Asterisk. Unificación operativa y sincronización de eventos en tiempo real.",
+    items: ["Asterisk AMI/ARI", "REST APIs", "Webhooks", "Sincronización de datos"],
   },
 ];
 

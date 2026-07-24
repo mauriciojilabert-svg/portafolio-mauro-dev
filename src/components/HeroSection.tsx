@@ -54,8 +54,8 @@ export default function HeroSection() {
           className="display text-white mb-4"
           style={{ fontSize: "clamp(2.8rem, 14vw, 9rem)" }}
         >
-          SOFTWARE<br />
-          <span style={{ color: "var(--gold)" }}>A MEDIDA</span><br />
+          PÁGINAS WEB<br />
+          <span style={{ color: "var(--gold)" }}>SISTEMAS</span><br />
           <span className="text-white/30">& VOIP</span>
         </motion.h1>
 
