@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 // ─── Configuración ─────────────────────────────────────────────────────────────
-const WHATSAPP_PHONE = "593XXXXXXXXX"; // Reemplaza con tu número (código país sin +)
+const WHATSAPP_PHONE = "56961511705"; // Reemplaza con tu número (código país sin +)
 const WHATSAPP_MESSAGE = encodeURIComponent(
   "¡Hola Mauro! Vi tu portafolio y me gustaría hablar sobre mi proyecto 🚀"
 );
