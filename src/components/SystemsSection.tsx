@@ -1,8 +1,10 @@
 "use client";
 
+import { useRef } from "react";
 import type { Variants } from "framer-motion";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { TicketCheck, Package, PhoneCall } from "lucide-react";
+import Image from "next/image";
 
 const systems = [
   {
@@ -15,6 +17,7 @@ const systems = [
     features: ["Ciclo de vida del ticket", "SLA y prioridades", "Asignación por área", "Dashboards en tiempo real", "Notificaciones automáticas"],
     tags: ["Django · Next.js · PostgreSQL"],
     dark: false,
+    image: "/ui-incitrack.png"
   },
   {
     num: "02",
@@ -26,6 +29,7 @@ const systems = [
     features: ["Stock en tiempo real", "Trazabilidad por serie", "Alertas automáticas", "Integración RRHH", "Historial de movimientos"],
     tags: ["Python · PostgreSQL · Docker"],
     dark: true,
+    image: "/ui-inventarios.png"
   },
   {
     num: "03",
@@ -37,6 +41,7 @@ const systems = [
     features: ["Integración Asterisk AMI/ARI", "CDR en tiempo real", "Analítica y KPIs", "Personalización total", "Dashboard supervisores"],
     tags: ["Asterisk · Python · WebSocket"],
     dark: false,
+    image: "/ui-voip.png"
   },
 ];
 
@@ -50,36 +55,33 @@ const stagger: Variants = {
   visible: { transition: { staggerChildren: 0.14 } },
 };
 
-export default function SystemsSection() {
+function ProjectCard({ s }: { s: typeof systems[0] }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  
+  // Parallax translation
+  const yImage = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
+
   return (
-    <section id="proyectos">
-      {/* Intro strip — white bg */}
-      <div className="section-white px-5 sm:px-8 py-14 sm:py-20">
-        <div className="max-w-7xl mx-auto">
-          <span className="gold-bar mb-4" />
-          <p className="eyebrow text-gray-500 mb-3">Sistemas en Producción</p>
-          <h2 className="section-title text-gray-900" style={{ fontSize: "clamp(2rem,8vw,4rem)" }}>
-            PROYECTOS QUE<br />GENERAN VALOR
-          </h2>
-          <p className="mt-4 text-sm text-gray-500 max-w-lg leading-relaxed">
-            Soluciones robustas y escalables desplegadas en entornos reales de producción empresarial.
-          </p>
-        </div>
-      </div>
-
-      {/* Project cards — alternating dark/light */}
-      {systems.map((s) => (
-        <motion.div
-          key={s.num}
-          className={s.dark ? "section-dark" : "section-white"}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={stagger}
-          style={{ borderTop: `1px solid ${s.dark ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.08)"}` }}
-        >
-          <div className="max-w-7xl mx-auto px-5 sm:px-8 py-12 sm:py-16">
-
+    <motion.div
+      ref={ref}
+      className={s.dark ? "section-dark" : "section-white"}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      variants={stagger}
+      style={{ borderTop: `1px solid ${s.dark ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.08)"}` }}
+    >
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-12 sm:py-20">
+        
+        {/* Desktop 2-column layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center">
+          
+          {/* Left Column: Text content */}
+          <div>
             {/* Number + icon row */}
             <motion.div variants={fadeUp} className="flex items-start justify-between mb-6">
               <span
@@ -128,7 +130,7 @@ export default function SystemsSection() {
             {/* Features — horizontal on sm */}
             <motion.div
               variants={fadeUp}
-              className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-0 mb-8"
+              className="grid grid-cols-1 xs:grid-cols-2 gap-0 mb-8"
               style={{ borderTop: `1px solid ${s.dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.07)"}` }}
             >
               {s.features.map((f, fi) => (
@@ -171,7 +173,54 @@ export default function SystemsSection() {
               </button>
             </motion.div>
           </div>
-        </motion.div>
+
+          {/* Right Column: Parallax Image */}
+          <motion.div 
+            variants={fadeUp} 
+            className="relative w-full h-[250px] sm:h-[400px] lg:h-[500px] overflow-hidden"
+            style={{ border: `1px solid ${s.dark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"}` }}
+          >
+            {/* We make the inner div taller than the container to allow scrolling without revealing edges */}
+            <motion.div 
+              className="absolute inset-0 w-full h-[125%]" 
+              style={{ y: yImage, top: "-12.5%" }}
+            >
+              <Image 
+                src={s.image} 
+                alt={`Screenshot de ${s.title}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </motion.div>
+          </motion.div>
+
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function SystemsSection() {
+  return (
+    <section id="proyectos">
+      {/* Intro strip — white bg */}
+      <div className="section-white px-5 sm:px-8 py-14 sm:py-20">
+        <div className="max-w-7xl mx-auto">
+          <span className="gold-bar mb-4" />
+          <p className="eyebrow text-gray-500 mb-3">Sistemas en Producción</p>
+          <h2 className="section-title text-gray-900" style={{ fontSize: "clamp(2rem,8vw,4rem)" }}>
+            PROYECTOS QUE<br />GENERAN VALOR
+          </h2>
+          <p className="mt-4 text-sm text-gray-500 max-w-lg leading-relaxed">
+            Soluciones robustas y escalables desplegadas en entornos reales de producción empresarial.
+          </p>
+        </div>
+      </div>
+
+      {/* Project cards — alternating dark/light */}
+      {systems.map((s) => (
+        <ProjectCard key={s.num} s={s} />
       ))}
     </section>
   );

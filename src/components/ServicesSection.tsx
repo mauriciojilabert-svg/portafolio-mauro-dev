@@ -16,10 +16,10 @@ const services = [
   {
     letter: "B",
     icon: <Code2 className="w-5 h-5" />,
-    title: "Desarrollo",
-    subtitle: "a Medida",
-    description: "Construyo aplicaciones web y sistemas de gestión adaptados exactamente a las necesidades de tu negocio, desde cero o sobre sistemas existentes.",
-    items: ["Backend Python / Django", "Frontend Next.js / TS", "PostgreSQL", "Docker & CI/CD"],
+    title: "Páginas Web",
+    subtitle: "& Sistemas",
+    description: "Hago la página web de tu negocio o PYME. La construyo como tú lo desees y te entrego una demo gratis antes de comprometerte.",
+    items: ["Demo gratis inicial", "Diseño a medida", "Sistemas de gestión", "Dominio & Hosting"],
   },
   {
     letter: "C",

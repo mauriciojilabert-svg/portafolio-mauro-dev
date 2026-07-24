@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
-import Image from "next/image";
 
 export default function ContactSection() {
   const handleContact = () => {
@@ -105,20 +104,6 @@ export default function ContactSection() {
             className="flex flex-col gap-5"
             style={{ borderTop: "3px solid var(--gold)", paddingTop: "1.5rem" }}
           >
-            {/* Photo */}
-            <div
-              className="relative overflow-hidden transition-all duration-700"
-              style={{ width: "100%", maxWidth: "280px", aspectRatio: "1/1" }}
-            >
-              <Image
-                src="/mauro-photo.jpg"
-                alt="Mauricio Caceres Jilabert"
-                fill
-                className="object-cover grayscale opacity-30 blur-[1px] hover:grayscale-0 hover:opacity-100 hover:blur-0 transition-all duration-700"
-                sizes="280px"
-              />
-            </div>
-
             {/* Identity */}
             <div>
               <p className="font-black text-2xl text-gray-900 tracking-tight uppercase mb-1">
@@ -137,7 +122,7 @@ export default function ContactSection() {
               className="flex flex-wrap gap-1.5 pt-3"
               style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}
             >
-              {["Python", "Django", "TypeScript", "Next.js", "PostgreSQL", "Asterisk"].map(t => (
+              {["Python", "Django", "FastAPI", "Flask", "TypeScript", "React", "Next.js", "NestJS", "Express.js", "Fastify", "Tailwind CSS", "PostgreSQL", "SQL Server", "SQLite", "Asterisk", "Docker"].map(t => (
                 <span
                   key={t}
                   className="eyebrow px-2 py-1"

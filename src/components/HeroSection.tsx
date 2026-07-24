@@ -70,9 +70,9 @@ export default function HeroSection() {
             className="eyebrow text-white/50 leading-relaxed"
             style={{ maxWidth: "34rem" }}
           >
-            Mauricio Caceres Jilabert — Desarrollador Fullstack especializado en
-            sistemas empresariales, integración VoIP/Asterisk y aplicaciones web
-            modernas listas para producción.
+            Mauricio Caceres — Desarrollador Fullstack especializado en
+            páginas web para PYMEs, sistemas de gestión a medida e
+            integración VoIP/Asterisk.
           </p>
         </motion.div>
 
@@ -106,7 +106,7 @@ export default function HeroSection() {
           className="mt-10 pt-5 flex flex-wrap gap-x-5 gap-y-1"
           style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
         >
-          {["Python", "Django", "TypeScript", "Next.js", "PostgreSQL", "Asterisk", "Docker"].map(t => (
+          {["Python", "Django", "FastAPI", "Flask", "TypeScript", "React", "Next.js", "NestJS", "Express.js", "Fastify", "Tailwind CSS", "PostgreSQL", "SQL Server", "SQLite", "Asterisk", "Docker"].map(t => (
             <span key={t} className="eyebrow text-white/25">{t}</span>
           ))}
         </motion.div>

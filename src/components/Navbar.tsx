@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Menu } from "lucide-react";
-import Image from "next/image";
 
 const links = [
   { href: "#proyectos", label: "Proyectos" },
@@ -131,9 +130,6 @@ export default function Navbar() {
                 className="flex items-center gap-3 pt-4"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
               >
-                <div className="relative w-8 h-8 overflow-hidden grayscale opacity-60">
-                  <Image src="/mauro-photo.jpg" alt="" fill className="object-cover" sizes="32px"/>
-                </div>
                 <div>
                   <p className="eyebrow text-white/50 text-[0.6rem]">Mauricio Caceres Jilabert</p>
                   <p className="eyebrow text-white/25 text-[0.55rem]">Fullstack · VoIP</p>
