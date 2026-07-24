@@ -6,8 +6,8 @@ Este documento sirve como referencia de contexto sobre la arquitectura, diseño 
 - **Framework:** Next.js 14 (App Router)
 - **Lenguaje:** TypeScript
 - **Estilos:** Tailwind CSS + CSS Modules/Variables Globales
-- **Animaciones:** Framer Motion
-- **Iconos:** Lucide React
+- **Animaciones:** Framer Motion, Swiper.js (Carruseles 3D)
+- **Iconos:** Lucide React, SVGs personalizados
 
 ## 2. Decisiones de Diseño (NatGeo Style)
 El diseño está inspirado fuertemente en el estilo editorial/arquitectónico premium similar a los interactivos de National Geographic.
@@ -35,9 +35,11 @@ graph TD
     Nav["Navbar.tsx (Header & Mobile Drawer)"]
     Hero["HeroSection.tsx (Landing View)"]
     Sys["SystemsSection.tsx (Proyectos en Producción)"]
+    Carousel["ProjectCarousel.tsx (Carrusel 3D Coverflow)"]
     Serv["ServicesSection.tsx (Consultoría e Integración)"]
     Cont["ContactSection.tsx (CTA & Author Card)"]
     Foot["Footer.tsx (Links y Social)"]
+    WhatsApp["WhatsAppButton.tsx (Floating CTA)"]
 
     %% Assets
     HeroBg["public/hero-bg.png"]
@@ -45,11 +47,13 @@ graph TD
 
     %% Relaciones
     Layout --> Page
+    Layout --> WhatsApp
     GlobalCSS -.->|Variables & Utility Classes| Layout
     
     Page --> Nav
     Page --> Hero
     Page --> Sys
+    Page --> Carousel
     Page --> Serv
     Page --> Cont
     Page --> Foot
@@ -67,5 +71,8 @@ graph TD
 ```
 
 ## 4. Archivos Clave
-- `src/app/globals.css`: Contiene todos los "Design Tokens" (variables CSS, clases globales como `.display`, `.eyebrow`, `.btn-ng`, `.section-dark`, `.section-white`). Si necesitas cambiar un color global, hazlo aquí.
-- `src/components/*`: Todos los componentes son marcados con `"use client"` ya que hacen uso de interactividad de estado (`useState`, `useEffect`) y animaciones de entrada (`framer-motion`).
+- `src/app/globals.css`: Contiene todos los "Design Tokens" (variables CSS, clases globales como `.display`, `.eyebrow`, `.btn-ng`, `.section-dark`, `.section-white`) y los estilos personalizados para el carrusel de Swiper.js y el botón de WhatsApp.
+- `src/app/layout.tsx`: Root layout que importa la fuente Inter, aplica variables globales, renderiza metadatos e incluye el componente `<WhatsAppButton />` para que esté disponible en toda la aplicación.
+- `src/components/ProjectCarousel.tsx`: Carrusel interactivo 3D usando `swiper/react` con el efecto Coverflow. Simula una ventana de macOS para mostrar capturas de los proyectos.
+- `src/components/WhatsAppButton.tsx`: Botón flotante persistente con tooltip y animaciones hover nativas.
+- `src/components/*`: Todos los componentes de UI interactivos están marcados con `"use client"` para manejar estados, hooks de React, y animaciones de `framer-motion` o `swiper`.
