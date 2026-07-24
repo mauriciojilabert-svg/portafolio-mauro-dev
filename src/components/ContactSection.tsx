@@ -62,12 +62,14 @@ export default function ContactSection() {
                 <Mail className="w-3.5 h-3.5" />
                 Solicitar Demo
               </button>
-              <button
-                onClick={handleContact}
+              <a
+                href="https://wa.me/56961511705"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-ng btn-ng-dark justify-center"
               >
-                Cotización →
-              </button>
+                WhatsApp →
+              </a>
             </div>
 
             {/* Highlights row */}
@@ -105,32 +107,28 @@ export default function ContactSection() {
           >
             {/* Photo */}
             <div
-              className="relative overflow-hidden grayscale hover:grayscale-0 transition-all duration-700"
+              className="relative overflow-hidden transition-all duration-700"
               style={{ width: "100%", maxWidth: "280px", aspectRatio: "1/1" }}
             >
               <Image
                 src="/mauro-photo.jpg"
                 alt="Mauricio Caceres Jilabert"
                 fill
-                className="object-cover"
+                className="object-cover grayscale opacity-30 blur-[1px] hover:grayscale-0 hover:opacity-100 hover:blur-0 transition-all duration-700"
                 sizes="280px"
-              />
-              {/* Gold tint overlay */}
-              <div
-                className="absolute inset-0 mix-blend-multiply opacity-20 transition-opacity duration-700 hover:opacity-0"
-                style={{ background: "var(--gold)" }}
               />
             </div>
 
             {/* Identity */}
             <div>
-              <p className="font-bold text-base text-gray-900 tracking-wide">
-                Mauricio Caceres Jilabert
+              <p className="font-black text-2xl text-gray-900 tracking-tight uppercase mb-1">
+                Mauricio Caceres
               </p>
               <div className="flex flex-col gap-0.5 mt-1">
                 <p className="eyebrow text-gray-400">Fullstack Developer</p>
-                <p className="eyebrow text-gray-300">VoIP & Systems Specialist</p>
-                <p className="eyebrow text-gray-200 mt-1">Buenos Aires, Argentina 🇦🇷</p>
+                <p className="eyebrow text-gray-400">VoIP & Systems Specialist</p>
+                <p className="eyebrow text-gray-300 mt-2">Santiago, Chile 🇨🇱</p>
+                <p className="eyebrow text-gray-300">Tel: +56 9 6151 1705</p>
               </div>
             </div>
 

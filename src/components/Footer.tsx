@@ -87,7 +87,7 @@ export default function Footer() {
             © 2026 Mauricio Caceres Jilabert · Todos los derechos reservados.
           </p>
           <p className="eyebrow text-white/15">
-            Hecho con ♥ en Argentina 🇦🇷
+            Hecho con ♥ en Santiago, Chile 🇨🇱
           </p>
         </div>
       </div>
