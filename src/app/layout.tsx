@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -51,7 +52,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={inter.variable}>
-      <body className="antialiased" style={{ background: '#000000', color: '#ffffff' }}>{children}</body>
+      <body className="antialiased" style={{ background: '#000000', color: '#ffffff' }}>
+        {children}
+        {/* Botón flotante WhatsApp — visible en todas las páginas */}
+        <WhatsAppButton />
+      </body>
     </html>
   );
 }
