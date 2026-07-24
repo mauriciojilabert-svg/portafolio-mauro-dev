@@ -46,8 +46,8 @@ export default function ContactSection() {
             </h2>
 
             <p className="text-sm text-gray-500 leading-relaxed mb-8 max-w-lg">
-              Cuéntame tu desafío. Te propongo una solución tecnológica
-              adaptada a tu empresa sin compromiso — con claridad técnica
+              Agende una consulta. Propuestas tecnológicas escalables, adaptadas
+              a los requerimientos de su empresa, con viabilidad técnica detallada
               y respuesta en menos de 24 horas.
             </p>
 

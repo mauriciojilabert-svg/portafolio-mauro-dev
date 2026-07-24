@@ -10,7 +10,7 @@ const services = [
     icon: <Lightbulb className="w-5 h-5" />,
     title: "Consultoría",
     subtitle: "de Sistemas",
-    description: "Analizo tu operación e identifico oportunidades de automatización, digitalización y mejora de procesos para maximizar la eficiencia de tu empresa.",
+    description: "Análisis operativo e identificación de oportunidades de automatización y digitalización de procesos para maximizar la eficiencia empresarial.",
     items: ["Relevamiento de procesos", "Diagnóstico tecnológico", "Hoja de ruta", "Asesoría en stack"],
   },
   {
@@ -18,7 +18,7 @@ const services = [
     icon: <Code2 className="w-5 h-5" />,
     title: "Páginas Web",
     subtitle: "& Sistemas",
-    description: "Hago la página web de tu negocio o PYME. La construyo como tú lo desees y te entrego una demo gratis antes de comprometerte.",
+    description: "Desarrollo de sitios web corporativos y sistemas de gestión a medida para PYMEs. Incluye demostración inicial sin costo para validación de concepto.",
     items: ["Demo gratis inicial", "Diseño a medida", "Sistemas de gestión", "Dominio & Hosting"],
   },
   {
@@ -26,7 +26,7 @@ const services = [
     icon: <Plug className="w-5 h-5" />,
     title: "Integración",
     subtitle: "APIs & VoIP",
-    description: "Conecto sistemas con ERPs, CRMs y centrales Asterisk para una operación unificada, con eventos en tiempo real y automatización de flujos.",
+    description: "Integración de sistemas con ERPs, CRMs y centrales telefónicas Asterisk. Unificación operativa, eventos en tiempo real y automatización de flujos de trabajo.",
     items: ["Asterisk AMI/ARI", "REST APIs", "Webhooks", "Automatización"],
   },
 ];
