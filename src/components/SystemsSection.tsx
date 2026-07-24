@@ -68,7 +68,7 @@ export default function SystemsSection() {
       </div>
 
       {/* Project cards — alternating dark/light */}
-      {systems.map((s, idx) => (
+      {systems.map((s) => (
         <motion.div
           key={s.num}
           className={s.dark ? "section-dark" : "section-white"}
