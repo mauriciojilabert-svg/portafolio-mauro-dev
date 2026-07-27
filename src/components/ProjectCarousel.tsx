@@ -1,7 +1,8 @@
 "use client";
 
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { EffectCoverflow, Autoplay, Pagination } from "swiper/modules";
 
 // ─── Swiper core styles (importados aquí para colocación en client component) ──
@@ -63,7 +64,24 @@ const projects: Project[] = [
 ];
 
 // ─── Browser Mockup Card ───────────────────────────────────────────────────────
-function BrowserCard({ project }: { project: Project }) {
+function BrowserCard({ project, isActive }: { project: Project; isActive?: boolean }) {
+  const swiper = useSwiper();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (project.video && videoRef.current && swiper) {
+      if (isActive) {
+        // Reiniciar video, reproducir y detener el autoplay global del carrusel
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch(() => {});
+        swiper.autoplay.stop();
+      } else {
+        // Pausar si la diapositiva ya no está activa
+        videoRef.current.pause();
+      }
+    }
+  }, [isActive, project.video, swiper]);
+
   return (
     <div className="carousel-card">
       {/* Barra superior macOS */}
@@ -87,11 +105,17 @@ function BrowserCard({ project }: { project: Project }) {
       <div className="browser-screenshot">
         {project.video ? (
           <video
+            ref={videoRef}
             src={project.video}
-            autoPlay
-            loop
             muted
             playsInline
+            onEnded={() => {
+              if (isActive && swiper) {
+                // Al terminar el video, avanzamos y retomamos el autoplay
+                swiper.slideNext();
+                swiper.autoplay.start();
+              }
+            }}
             style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
           />
         ) : (
@@ -215,7 +239,7 @@ export default function ProjectCarousel() {
         >
           {projects.map((project) => (
             <SwiperSlide key={project.id} className="project-slide">
-              <BrowserCard project={project} />
+              {({ isActive }) => <BrowserCard project={project} isActive={isActive} />}
             </SwiperSlide>
           ))}
         </Swiper>
