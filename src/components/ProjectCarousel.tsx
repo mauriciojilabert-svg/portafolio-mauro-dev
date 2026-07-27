@@ -16,6 +16,7 @@ interface Project {
   subtitle: string;
   stack: string[];
   image: string;
+  video?: string;
   demoUrl: string;
   accentColor: string;
 }
@@ -28,6 +29,7 @@ const projects: Project[] = [
     subtitle: "Mesa de Ayuda & Gestión de Tickets",
     stack: ["Django", "Next.js", "PostgreSQL", "Docker"],
     image: "/ui-incitrack.png",
+    video: "/incitrack-demo.mp4",
     demoUrl: "#",
     accentColor: "#00c9a7",
   },
@@ -81,16 +83,27 @@ function BrowserCard({ project }: { project: Project }) {
         <div className="browser-dots-spacer" />
       </div>
 
-      {/* Área de contenido: screenshot */}
+      {/* Área de contenido: screenshot o video */}
       <div className="browser-screenshot">
-        <Image
-          src={project.image}
-          alt={`Captura de pantalla de ${project.title}`}
-          fill
-          className="object-cover object-top"
-          sizes="(max-width: 768px) 90vw, 480px"
-          priority
-        />
+        {project.video ? (
+          <video
+            src={project.video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+          />
+        ) : (
+          <Image
+            src={project.image}
+            alt={`Captura de pantalla de ${project.title}`}
+            fill
+            className="object-cover object-top"
+            sizes="(max-width: 768px) 90vw, 480px"
+            priority
+          />
+        )}
         {/* Overlay con gradiente inferior */}
         <div className="browser-overlay" />
       </div>
